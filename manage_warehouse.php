@@ -1,11 +1,39 @@
 <?php
 session_start();
-if ($_SESSION['user_type'] != 'Administrator') {
+if ($_SESSION['user_type'] != 'Admin') {
     header('Location: home.html');
     exit;
 }
 
-include 'config.php';
+include('config.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $category_id = $_POST['category_id'];
+    $item_name = $_POST['item_name'];
+    $quantity = $_POST['quantity'];
+
+    // Insert the new item into the Items table
+    $stmt = $conn->prepare("INSERT INTO Items (item_name, category_id) VALUES (?, ?)");
+    $stmt->bind_param("si", $item_name, $category_id);
+    $stmt->execute();
+
+    // Get the inserted item's ID
+    $item_id = $stmt->insert_id;
+
+    // Insert the item into the Inventory table
+    $stmt = $conn->prepare("INSERT INTO Inventory (item_id, quantity) VALUES (?, ?)");
+    $stmt->bind_param("ii", $item_id, $quantity);
+    $stmt->execute();
+
+    } else {
+        // Debugging output (optional)
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+/*
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add_item'])) {
@@ -36,6 +64,6 @@ $query = "SELECT Inventory.id AS inventory_id, Items.name AS item_name, Categori
 $result = mysqli_query($conn, $query);
 
 $categories = mysqli_query($conn, "SELECT * FROM Categories");
-
+*/
 ?>
 
