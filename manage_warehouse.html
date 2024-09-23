@@ -12,27 +12,18 @@
         <form id="add-item-form">
             <label for="category_id">Category:</label>
             <select id="category_id" name="category_id" required>
-                <!-- Options will be dynamically inserted by PHP -->
+                <!-- Options will be dynamically inserted by JS -->
             </select>
             <label for="item_name">Item Name:</label>
             <input type="text" id="item_name" name="item_name" required>
             <label for="quantity">Quantity:</label>
             <input type="number" id="quantity" name="quantity" required>
             <button type="submit">Add Item</button>
-        </form>
-        <!--
-        <form action="manage_warehouse.php" method="post">
-            <label for="category_id">Category:</label>
-            <select id="category_id" name="category_id" required>
+            <script>
                 
-            </select>
-            <label for="item_name">Item Name:</label>
-            <input type="text" id="item_name" name="item_name" required>
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" name="quantity" required>
-            <button type="submit" name="add_item">Add Item</button>
+            </script> 
         </form>
-        -->
+       
         <h2>Current Inventory</h2>
         <table id="inventory-table">
             <thead>
@@ -48,6 +39,6 @@
             </tbody>
         </table>
     </div>
-    <script src="manage_inventory.js"></script>
+    <script src="manage_warehouse.js"></script>
 </body>
 </html>

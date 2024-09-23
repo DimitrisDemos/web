@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements and Offers</title>
+    <link rel="stylesheet" href="/css/citizen_dashboard.css"> <!-- Add your CSS file if needed -->
+</head>
+<body>
+    <h1>Announcements</h1>
+    <div id="announcementsList"></div>
+
+    <h2>Make an Offer</h2>
+    <form id="offerForm">
+        <label for="announcement">Announcement:</label>
+        <select id="announcement" name="announcement" required>
+            <!-- Options will be loaded via JavaScript -->
+        </select><br>
+
+        <label for="offerItem">Item:</label>
+        <input type="text" id="offerItem" name="item" placeholder="Search for item" required><br>
+
+        <label for="offerQuantity">Quantity:</label>
+        <input type="number" id="offerQuantity" name="quantity" required><br>
+
+        <button type="submit">Submit Offer</button>
+    </form>
+
+    <div id="offersList"></div>
+
+    <script src="announcements_offers.js"></script>
+</body>
+</html>

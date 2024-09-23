@@ -108,12 +108,13 @@ CREATE TABLE Statistics (
     completed_offers INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+-- Insert Users
 INSERT INTO Users (username, password, fullname, phone, user_type)
 VALUES
 ('admin', 'admin1123', 'Administrator', '6981490351', '1'),
 ('rescuer', 'pass', 'rescuer', '6946872608', '2');
 
+-- Insert Categories
 INSERT INTO Categories (category_name)
 VALUES
     ('Water'),
@@ -137,3 +138,32 @@ VALUES
 -- Insert corresponding entries into the Inventory table with a default quantity
 INSERT INTO Inventory (item_id, quantity)
 SELECT item_id, 0 FROM Items WHERE item_name IN ('Water Bottles', 'Meals Ready-to-Eat (MREs)', 'First Aid Kits', 'Diapers', 'Sanitary Pads', 'Soap Bars', 'Blankets', 'Baby Formula');
+
+
+-- Insert Vehicles
+INSERT INTO Vehicles (rescuer_id, vehicle_name, current_location, load_capacity, status)
+VALUES
+    (2, 'Rescue Van 1', ST_GeomFromText('POINT(39.2466 21.7346)'), 2000, 'Available'),
+    (2, 'Rescue Van 2', ST_GeomFromText('POINT(38.2466 21.7346)'), 1500, 'Available');
+
+-- Insert Announcements
+INSERT INTO Announcements (admin_id, announcement_text)
+VALUES
+    (1, 'Important Update: New relief supplies have arrived in Patras. Please check the inventory for details.');
+
+-- Insert Offers
+INSERT INTO Offers (citizen_id, item_id, quantity, offer_status)
+VALUES
+    (3, (SELECT item_id FROM Items WHERE item_name = 'Blankets'), 30, 'Pending'),
+    (3, (SELECT item_id FROM Items WHERE item_name = 'Diapers'), 20, 'Pending');
+
+-- Insert Tasks
+INSERT INTO Tasks (vehicle_id, task_type, task_id_ref, status)
+VALUES
+    (1, 'Request', (SELECT request_id FROM Requests WHERE item_id = (SELECT item_id FROM Items WHERE item_name = 'Water Bottles')), 'Assigned'),
+    (2, 'Offer', (SELECT offer_id FROM Offers WHERE item_id = (SELECT item_id FROM Items WHERE item_name = 'Blankets')), 'Assigned');
+
+-- Insert Statistics
+INSERT INTO Statistics (stat_date, new_requests, new_offers, completed_requests, completed_offers)
+VALUES
+    ('2024-09-16', 5, 2, 1, 1);

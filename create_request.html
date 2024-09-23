@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Request</title>
+    <link rel="stylesheet" href="/css/citizen_dashboard.css"> <!-- Add your CSS file if needed -->
+</head>
+<body>
+    <h1>Create a Request</h1>
+    <form id="requestForm">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <!-- Options will be loaded via JavaScript -->
+        </select><br>
+
+        <label for="item">Item:</label>
+        <input type="text" id="item" name="item" placeholder="Search for item" required><br>
+
+        <label for="people">Number of People:</label>
+        <input type="number" id="people" name="people" required><br>
+
+        <button type="submit">Create Request</button>
+    </form>
+
+    <div id="requestList"></div>
+
+    <script src="create_request.js"></script>
+</body>
+</html>

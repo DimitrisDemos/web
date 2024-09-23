@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($user['user_type'] == 'Rescuer') {
             header("Location: home.html");
         } else {
-            header("Location: home.html");
+            header("Location: citizen_dashboard.html");
         }
         exit();
     } else {
