@@ -1,22 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrator Dashboard</title>
-    <link rel="stylesheet" href="css/home.css">
+    
+    <!-- Add Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to an external CSS file -->
+    <link rel="stylesheet" href="css/admin_dashboard.css">
+
+    <!-- Include Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        .banner {
+            background-color: #007bff;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background-color: #0062cc;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            margin: 0.5rem;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #filterForm {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        #filterForm input, #filterForm button {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #filterForm button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        #filterForm button:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive Chart Section */
+        canvas {
+            max-width: 800px;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .banner h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            #filterForm {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            #filterForm input, #filterForm button {
+                width: 100%;
+            }
+
+            canvas {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body>
+
     <section class="banner">
         <div class="container">
             <h1>Administrator Dashboard</h1>
-            <a href="manage_warehouse.html"class="btn">Manage Warehouse</a>
-            <a href="manage_rescuers.php" class="btn">Manage Rescuers</a>
-            <a href="map.html" class="btn">View Map</a>
-            <a href="create_announcement.php" class="btn">Create Announcement</a>
+            <a href="manage_warehouse.html" class="btn">Manage Warehouse</a>
+            <a href="manage_rescuers.html" class="btn">Manage Rescuers</a>
+            <a href="admin_map.html" class="btn">View Map</a>
+            <a href="create_announcement.html" class="btn">Create Announcement</a>
             <a href="logout.php" class="btn">Logout</a>
         </div>
     </section>
+
+    <!-- Form to filter data by time period -->
+    <form id="filterForm">
+        <input type="date" id="start_date" name="start_date" required>
+        <input type="date" id="end_date" name="end_date" required>
+        <button type="submit">Generate Report</button>
+    </form>
+
+    <!-- Canvas element where the chart will be drawn -->
+    <canvas id="myChart"></canvas>
+
+    <!-- Link to JavaScript for functionality -->
+    <script src="admin_dashboard.js"></script>
+
 </body>
 </html>
-

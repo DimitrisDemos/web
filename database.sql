@@ -109,10 +109,16 @@ CREATE TABLE Statistics (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 -- Insert Users
-INSERT INTO Users (username, password, fullname, phone, user_type)
+INSERT INTO Users (username, password, fullname, phone, user_type, location) 
 VALUES
-('admin', 'admin1123', 'Administrator', '6981490351', '1'),
-('rescuer', 'pass', 'rescuer', '6946872608', '2');
+('admin', 'admin1123', 'Administrator', '6981490351', 'Admin', ST_GeomFromText('POINT(39.7456 21.0123)')),
+('rescuer', 'pass', 'rescuer', '6946872608', 'Rescuer', ST_GeomFromText('POINT(39.7456 21.0123)')), -- Fixed missing location value
+('citizen1', 'password1', 'John Doe', '1234567890', 'Citizen', ST_GeomFromText('POINT(39.7456 21.0123)')),
+('citizen2', 'password2', 'Jane Smith', '0987654321', 'Citizen', ST_GeomFromText('POINT(40.1234 22.1234)')),
+('citizen3', 'password3', 'Alex Johnson', '1122334455', 'Citizen', ST_GeomFromText('POINT(38.9876 21.9876)')),
+('rescuer1', 'password1', 'Rescuer A', '1111222233', 'Rescuer', ST_GeomFromText('POINT(40.0000 21.0000)')),
+('rescuer2', 'password2', 'Rescuer B', '3333444455', 'Rescuer', ST_GeomFromText('POINT(41.0000 22.0000)'));
+
 
 -- Insert Categories
 INSERT INTO Categories (category_name)
@@ -146,24 +152,26 @@ VALUES
     (2, 'Rescue Van 1', ST_GeomFromText('POINT(39.2466 21.7346)'), 2000, 'Available'),
     (2, 'Rescue Van 2', ST_GeomFromText('POINT(38.2466 21.7346)'), 1500, 'Available');
 
--- Insert Announcements
-INSERT INTO Announcements (admin_id, announcement_text)
-VALUES
-    (1, 'Important Update: New relief supplies have arrived in Patras. Please check the inventory for details.');
 
--- Insert Offers
-INSERT INTO Offers (citizen_id, item_id, quantity, offer_status)
-VALUES
-    (3, (SELECT item_id FROM Items WHERE item_name = 'Blankets'), 30, 'Pending'),
-    (3, (SELECT item_id FROM Items WHERE item_name = 'Diapers'), 20, 'Pending');
+-- Insert sample Requests made by Citizens
+INSERT INTO Requests (citizen_id, item_id, quantity, request_status, created_at) VALUES
+((SELECT user_id FROM Users WHERE username = 'citizen1'), (SELECT item_id FROM Items WHERE item_name = 'Water Bottles'), 5, 'Pending', '2023-09-20 10:30:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen1'), (SELECT item_id FROM Items WHERE item_name = 'First Aid Kits'), 2, 'Completed', '2023-09-18 09:15:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen2'), (SELECT item_id FROM Items WHERE item_name = 'Meals Ready-to-Eat (MREs)'), 10, 'Pending', '2023-09-21 14:00:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen2'), (SELECT item_id FROM Items WHERE item_name = 'Diapers'), 6, 'Completed', '2023-09-17 16:45:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen3'), (SELECT item_id FROM Items WHERE item_name = 'Sanitary Pads'), 3, 'Pending', '2023-09-19 11:00:00');
 
--- Insert Tasks
-INSERT INTO Tasks (vehicle_id, task_type, task_id_ref, status)
-VALUES
-    (1, 'Request', (SELECT request_id FROM Requests WHERE item_id = (SELECT item_id FROM Items WHERE item_name = 'Water Bottles')), 'Assigned'),
-    (2, 'Offer', (SELECT offer_id FROM Offers WHERE item_id = (SELECT item_id FROM Items WHERE item_name = 'Blankets')), 'Assigned');
 
--- Insert Statistics
-INSERT INTO Statistics (stat_date, new_requests, new_offers, completed_requests, completed_offers)
-VALUES
-    ('2024-09-16', 5, 2, 1, 1);
+-- Insert sample Offers made by Citizens
+INSERT INTO Offers (citizen_id, item_id, quantity, offer_status, created_at) VALUES
+((SELECT user_id FROM Users WHERE username = 'citizen1'), (SELECT item_id FROM Items WHERE item_name = 'Water Bottles'), 20, 'Pending', '2023-09-20 11:00:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen2'), (SELECT item_id FROM Items WHERE item_name = 'Meals Ready-to-Eat (MREs)'), 15, 'Completed', '2023-09-19 15:00:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen3'), (SELECT item_id FROM Items WHERE item_name = 'Blankets'), 8, 'Pending', '2023-09-21 12:00:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen1'), (SELECT item_id FROM Items WHERE item_name = 'First Aid Kits'), 5, 'Completed', '2023-09-18 13:00:00'),
+((SELECT user_id FROM Users WHERE username = 'citizen3'), (SELECT item_id FROM Items WHERE item_name = 'Soap Bars'), 12, 'Pending', '2023-09-20 09:30:00');
+
+-- Insert sample Announcements by Admin
+INSERT INTO Announcements (admin_id, announcement_text, created_at) VALUES
+((SELECT user_id FROM Users WHERE username = 'admin'), 'Request for medical supplies. Urgent!', '2023-09-15 08:00:00'),
+((SELECT user_id FROM Users WHERE username = 'admin'), 'Need more volunteers for rescues.', '2023-09-16 10:00:00'),
+((SELECT user_id FROM Users WHERE username = 'admin'), 'Water shortage in affected areas. Donate if possible.', '2023-09-17 12:30:00');

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Announcement - Admin</title>
+    <link rel="stylesheet" href="css/admin_dashboard.css"> <!-- Use the same CSS file for consistency -->
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Create New Announcement</h2>
+
+        <!-- Success and error messages -->
+        <div id="errorMessage" class="error"></div>
+        <div id="successMessage" class="success"></div>
+
+        <!-- Announcement form -->
+        <form id="announcementForm" method="POST">
+            <label for="announcement_text">Announcement Text</label>
+            <textarea id="announcement_text" name="announcement_text" rows="5" placeholder="Write your announcement here..." required></textarea>
+
+            <button type="submit">Create Announcement</button>
+        </form>
+
+        <a href="admin_dashboard.php" class="btn-back">Back to Dashboard</a>
+    </div>
+
+    <script src="js/create_announcement.js"></script> <!-- Link to the JavaScript file -->
+</body>
+</html>

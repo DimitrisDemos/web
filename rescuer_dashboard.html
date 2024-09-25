@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rescuer Dashboard</title>
+    <link rel="stylesheet" href="css/rescuer_dashboard.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <div class="rescuer-dashboard">
+        <h1>Rescuer Dashboard</h1>
+
+        <!-- Section for viewing current load -->
+        <h2>Your Vehicle Load</h2>
+        <div id="loadContainer"></div>
+
+        <!-- Load and Unload buttons -->
+        <div class="actions">
+            <button id="loadButton" disabled>Load Items</button>
+            <button id="unloadButton" disabled>Unload Items</button>
+        </div>
+
+        <!-- Inventory section (hidden unless "Load" is clicked) -->
+        <div id="inventorySection" style="display: none;">
+            <h2>Base Inventory</h2>
+            <form id="loadForm">
+                <div id="inventoryContainer"></div>
+                <button type="submit">Add to Load</button>
+            </form>
+        </div>
+
+        <!-- Map section -->
+        <div id="map" style="height: 400px;"></div>
+
+        <!-- Manage tasks section -->
+        <h2>Your Current Tasks</h2>
+        <div id="tasksContainer"></div>
+
+        <a href="logout.php" class="btn">Logout</a>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="rescuer_dashboard.js"></script>
+</body>
+</html>

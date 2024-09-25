@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    padding: 20px;
+}
+
+#map {
+    height: 600px; /* Set the height of the map */
+    width: 100%;   /* Full width */
+}
+
+.request-marker {
+    background-color: red; /* Custom style for request markers */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.offer-marker {
+    background-color: green; /* Custom style for offer markers */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}

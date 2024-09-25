@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user['user_type'] == 'Admin') {
             header("Location: admin_dashboard.html");
         } elseif ($user['user_type'] == 'Rescuer') {
-            header("Location: home.html");
+            header("Location: rescuer_dashboard.html");
         } else {
             header("Location: citizen_dashboard.html");
         }
